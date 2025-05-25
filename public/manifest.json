@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "Buy Bye",
+    "description": "Buy Bye Extension",
+    "version": "1.0",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "logo.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "16.png"
+    },
+    "permissions": ["contextMenus"]
+}

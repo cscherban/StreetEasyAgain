@@ -1,0 +1,21 @@
+{
+    "name": "buy-bye-extension",
+    "version": "1.0.0",
+    "description": "buy-bye-extension",
+    "main": "background.ts",
+    "scripts": {
+        "build": "tsc && vite build",
+        "watch": "tsc && vite build --watch",
+        "format": "prettier --write ."
+    },
+    "author": "cscherban & kgnamba",
+    "devDependencies": {
+        "prettier": "^3.3.3",
+        "tsc": "^2.0.4",
+        "typescript": "^5.6.2",
+        "vite": "^5.4.9"
+    },
+    "dependencies": {
+        "@types/chrome": "^0.0.278"
+    }
+}
