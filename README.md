@@ -1,5 +1,8 @@
-# buy-bye
+# StreetEasyAgain
 
+TLDR: StreetEasy Sucks. It won't tell me if I already reached out to someone.
+
+## from my other project
 A few basics on the project.
 
 I've decided that VITE is a starting point for building the project, as eventually we may want to add packages (or even preact) to the extension.
