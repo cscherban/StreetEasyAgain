@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "Buy Bye",
-    "description": "Buy Bye Extension",
+    "name": "StreetEasyAgain",
+    "description": "StreetEasyAgain Extension",
     "version": "1.0",
     "action": {
         "default_popup": "index.html",
