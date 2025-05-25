@@ -10,8 +10,14 @@
     "background": {
         "service_worker": "background.js"
     },
+    "content_scripts": [
+    {
+        "matches": ["*://*.streeteasy.com/*"],
+        "js": ["streeteasy.js"]
+    }
+    ],
     "icons": {
         "16": "16.png"
     },
-    "permissions": ["contextMenus"]
+    "permissions": ["contextMenus","storage"]
 }

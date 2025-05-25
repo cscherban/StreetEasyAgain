@@ -10,6 +10,7 @@ export default defineConfig({
             input: {
                 main: resolve(__dirname, 'index.html'),
                 background: resolve(src, 'background.ts'),
+                streeteasy: resolve(src, 'streeteasy.ts'),
             },
             output: {
                 entryFileNames: '[name].js',
