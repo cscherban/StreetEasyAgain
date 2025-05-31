@@ -12,7 +12,74 @@ type ApartmentData = {
     contacted?: Date
 }
 
-function checkForTourButton() {
+const lastAnalysisTime = new Date()
+
+function runAnalysis() {
+    // from this url: https://streeteasy.com/building/1234-5th-ave-new-york https://streeteasy.com/rent/1234-5th-ave-new-york  I want to extract the token building or rent
+    const url = new URL(location.href)
+    const pathParts = url.pathname.split('/').filter((part) => part !== '')
+    let token = ''
+    if (pathParts.length > 0) {
+        token = pathParts[0] // This will be 'building' or 'rent'
+    }
+    if (token !== 'building' && token !== 'for-rent') {
+        return false
+    }
+
+    if (token === 'building') {
+        if (new Date().getTime() - lastAnalysisTime.getTime() < 10000) {
+            return true
+        }
+
+        analyzeBuildingPage()
+        return true
+    }
+
+    if (token === 'for-rent') {
+        console.log('Analyzing a rent page')
+        analyzeRentPage()
+        return false
+    }
+}
+
+function analyzeRentPage() {
+    const cards = document.querySelectorAll('[data-testid="listing-card"]')
+
+    if (cards.length === 0) {
+        console.log('No rental cards found, exiting')
+        return false
+    }
+
+    cards.forEach((card) => {
+        // can you select the anchord element within the card
+        const anchorElement = card.querySelector('a')
+        if (!anchorElement) {
+            return
+        }
+        const address = anchorElement.textContent?.trim()
+        if (!address) {
+            return
+        }
+
+        chrome.storage.sync.get([address], function (items) {
+            const data = items[address]
+            if (data?.contacted) {
+                const existingBoldText = card.querySelector('strong')
+                if (existingBoldText) {
+                    return
+                }
+                const boldText = document.createElement('strong')
+                boldText.textContent = 'Already contacted!'
+                boldText.style.color = 'red'
+                card.appendChild(boldText)
+            }
+        })
+    })
+
+    return true
+}
+
+function analyzeBuildingPage() {
     const buttons = document.querySelectorAll('button')
     const filteredButtons = Array.prototype.filter.call(buttons, function (el) {
         return el.textContent.trim().toLowerCase() === 'request a tour'
@@ -129,7 +196,7 @@ function checkForTourButton() {
 }
 
 const observer = new MutationObserver(() => {
-    if (checkForTourButton()) {
+    if (runAnalysis()) {
         observer.disconnect() // Stop observing once button is found
     }
 })
@@ -141,4 +208,4 @@ observer.observe(document.body, {
 })
 
 // Also run once just in case it's already present
-checkForTourButton()
+runAnalysis()
