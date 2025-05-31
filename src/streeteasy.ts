@@ -15,7 +15,6 @@ type ApartmentData = {
 const lastAnalysisTime = new Date()
 
 function runAnalysis() {
-    // from this url: https://streeteasy.com/building/1234-5th-ave-new-york https://streeteasy.com/rent/1234-5th-ave-new-york  I want to extract the token building or rent
     const url = new URL(location.href)
     const pathParts = url.pathname.split('/').filter((part) => part !== '')
     let token = ''
